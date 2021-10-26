@@ -60,7 +60,7 @@ public class DisplayRequests extends HttpServlet {
  		ResultSet rs = stmt.executeQuery("select * from Recipient");
  		out.println("<table border = 1 width = 50% height = 50%");
  		System.out.println("Printing connection object 2"+con);
- 		out.println("<tr><th>ID</th><th>Name</th><th>Gender</th><th>Date of Birth</th><th>Address</th><th>Is Smoker</th><th>Major Diseases</th><th>Contact No</th><th>Blood Type</th><tr>");  
+ 		out.println("<tr><th>ID</th><th>Name</th><th>Gender</th><th>Date of Birth</th><th>Address</th><th>Contact No</th><th>Blood Type</th><tr>");  
 		while(rs.next())
 		{
 			System.out.println("Printing connection object 3"+con);

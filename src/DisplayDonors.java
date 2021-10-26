@@ -60,7 +60,7 @@ public class DisplayDonors extends HttpServlet {
  		ResultSet rs = stmt.executeQuery("select * from Donor");
  		out.println("<table border = 1 width = 50% height = 50%");
  		System.out.println("Printing connection object 2"+con);
- 		out.println("<tr><th>ID</th><th>Name</th><th>Gender</th><th>Date of Birth</th><th>Address</th><th>Is Smoker</th><th>Major Diseases</th><th>Contact No</th><th>Blood Type</th><tr>");  
+ 		out.println("<tr><th>ID</th><th>Name</th><th>Gender</th><th>Date of Birth</th><th>Address</th><th>Is Smoker</th><th>Major Diseases</th><th>Contact No</th><th>Blood Type</th><th>Edit</th><th>Delete</th><tr>");  
 		while(rs.next())
 		{
 			System.out.println("Printing connection object 3"+con);
@@ -104,10 +104,10 @@ public class DisplayDonors extends HttpServlet {
 				BloodType = "O +ve";
 				break;
 			}
-			out.println("<tr><td>" + donorID + "</td><td>"+ name + "</td><td>" + gender + "</td><td>" + date + "</td><td>" + address + "</td><td>" + isSmoker + "</td><td>" + majorDiseases + "</td><td>" + contactNo + "</td><td>" + BloodType+ "</td></tr>");
+			out.println("<tr><td>" + donorID + "</td><td>"+ name + "</td><td>" + gender + "</td><td>" + date + "</td><td>" + address + "</td><td>" + isSmoker + "</td><td>" + majorDiseases + "</td><td>" + contactNo + "</td><td>" + BloodType+ "</td><td>" + "<a href = \"updateDonor.jsp\" id =\""+donorID+"\"> Edit </a>" + "</td><td>" + "<a href = \"deleteDonor.jsp\" id =\""+donorID+"\" > Delete </a>" + "</td></tr>");
 		}
 		 out.println("</table>");  
-         out.println("</html></body>");  
+		 out.println("</html></body>");  
          con.close();  
 
 		//Checks if insert is successful.If yes,then redirects to Result.jsp page 
