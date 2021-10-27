@@ -1,5 +1,5 @@
-# blood-bank-management-system
+# Blood Bank Management System
 
-Database and Management Systems project 2
+Database and Information System Course Project
 
 Ameen N and Mohammed Sameer
