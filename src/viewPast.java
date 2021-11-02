@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class AddServlet
  */
-@WebServlet("/DisplayRequests")
-public class DisplayRequests extends HttpServlet {
+@WebServlet("/viewPast")
+public class viewPast extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	
@@ -27,7 +27,7 @@ public class DisplayRequests extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DisplayRequests() {
+    public viewPast() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -51,57 +51,19 @@ public class DisplayRequests extends HttpServlet {
  		//System.out.println("Printing connection object "+con);
  		
  		Statement stmt = con.createStatement();
- 		ResultSet rs = stmt.executeQuery("select * from Recipient;");
+ 		ResultSet rs = stmt.executeQuery("select * from recieves;");
  		//System.out.println("Printing connection object 2"+con);
  		ArrayList Rows = new ArrayList();
 		while(rs.next())
 		{	
 			ArrayList row = new ArrayList();
+			int ID = rs.getInt("id");
 			int recipientID = rs.getInt("recipientID");
-			String name = rs.getString("name");
-			String gender = rs.getString("gender");
-			Date date = rs.getDate("DOB");
-			String address = rs.getString("address");
-			String contactNo = rs.getString("contactNo");
-			int typeID = rs.getInt("typeID");
-			String BloodType = null;
-			switch(typeID)
-			{
-			case 1:
-				BloodType = "O +ve";
-				break;
-			case 2:
-				BloodType = "O -ve";
-				break;
-			case 3:
-				BloodType = "A +ve";
-				break;
-			case 4:
-				BloodType = "A -ve";
-				break;
-			case 5:
-				BloodType = "B +ve";
-				break;
-			case 6:
-				BloodType = "B -ve";
-				break;
-			case 7:
-				BloodType = "AB +ve";
-				break;
-			case 8:
-				BloodType = "AB -ve";
-				break;
-			default:
-				BloodType = "O +ve";
-				break;
-			}
+			Date dateRecieved = rs.getDate("dateRecieved");
+			
+			row.add(ID);
 			row.add(recipientID);
-			row.add(name);
-			row.add(gender);
-			row.add(date);
-			row.add(address);
-			row.add(contactNo);
-			row.add(BloodType);
+			row.add(dateRecieved);
 			Rows.add(row);
 			System.out.println(row);
 		}
@@ -109,15 +71,14 @@ public class DisplayRequests extends HttpServlet {
        
         request.setAttribute("propertyList", Rows);
         if(!Rows.isEmpty()) {
-        	RequestDispatcher rd = request.getRequestDispatcher("recipientDisplay.jsp");
+        	RequestDispatcher rd = request.getRequestDispatcher("viewPast.jsp");
 			rd.forward(request, response);
-			System.out.println("Done till here");
         }
-        System.out.println("Error");
+
 		}
 		 catch (Exception e) 
  		{
- 			e.printStackTrace();
+ 			
  		}
 
 		

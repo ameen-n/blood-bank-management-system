@@ -22,17 +22,25 @@
         <li class="nav-item"><a href="Home.jsp" class="nav-link" aria-current="page">Home</a></li>
         <li class="nav-item"><a href="Add.jsp" class="nav-link">Donor Registration</a></li>
         <li class="nav-item"><a href="Issue.jsp" class="nav-link">Request for Blood</a></li>
-        <li class="nav-item"><a href="Login.jsp" class="nav-link">Login</a></li>
+        <li class="nav-item"><a href="Login.jsp" class="nav-link active">Login</a></li>
       </ul>
     </header>
   </div>
 
 <!-- Begin page content -->
 <main class="flex-shrink-0">
-  <div style="width: 60%;" class="container">
-    <center><h3 class="mt-5">Your request has been added to the queue!</h3></center>
+  <div style="width: 50%;" class="container">
+    <h1 class="mt-5">Admin Login</h1>
   	  <div class="wrapper">
-    </div>
+    <form class="form-signin" action = loginServlet method = POST>       
+      <input type="text" class="form-control" name="username" placeholder="Email Address" required="" autofocus="" />
+      <br/>
+      <input type="password" class="form-control" name="password" placeholder="Password" required=""/><br>    
+
+      
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>   
+    </form>
+  </div>
   </div>
 </main>
 

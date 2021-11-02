@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -35,35 +36,27 @@ public class DisplayDonors extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		PrintWriter out = response.getWriter();
-		response.setContentType("text/html");
-		out.println("<html><body>");
 				try
 		{
 	
 		//getting input values from jsp page
-		
-			
-		
-
 
 		Connection con = null;
  		String url = "jdbc:mysql://localhost:3306/bloodbank"; //MySQL URL and followed by the database name
- 		String username = "project1"; //MySQL username
- 		String password = "password"; //MySQL password
+ 		String username = "bbmsuser"; //MySQL username
+ 		String password = "Pass@123"; //MySQL password
 		
  		Class.forName("com.mysql.jdbc.Driver");
 		con = DriverManager.getConnection(url, username, password); //attempting to connect to MySQL database
- 		System.out.println("Printing connection object "+con);
+ 		//System.out.println("Printing connection object "+con);
  		
  		Statement stmt = con.createStatement();
  		ResultSet rs = stmt.executeQuery("select * from Donor");
- 		out.println("<table border = 1 width = 50% height = 50%");
- 		System.out.println("Printing connection object 2"+con);
- 		out.println("<tr><th>ID</th><th>Name</th><th>Gender</th><th>Date of Birth</th><th>Address</th><th>Is Smoker</th><th>Major Diseases</th><th>Contact No</th><th>Blood Type</th><th>Edit</th><th>Delete</th><tr>");  
+ 		//System.out.println("Printing connection object 2"+con);
+ 		ArrayList Rows = new ArrayList();
 		while(rs.next())
-		{
-			System.out.println("Printing connection object 3"+con);
+		{	
+			ArrayList row = new ArrayList();
 			int donorID = rs.getInt("donorID");
 			String name = rs.getString("name");
 			String gender = rs.getString("gender");
@@ -104,19 +97,30 @@ public class DisplayDonors extends HttpServlet {
 				BloodType = "O +ve";
 				break;
 			}
-			out.println("<tr><td>" + donorID + "</td><td>"+ name + "</td><td>" + gender + "</td><td>" + date + "</td><td>" + address + "</td><td>" + isSmoker + "</td><td>" + majorDiseases + "</td><td>" + contactNo + "</td><td>" + BloodType+ "</td><td>" + "<a href = \"updateDonor.jsp\" id =\""+donorID+"\"> Edit </a>" + "</td><td>" + "<a href = \"deleteDonor.jsp\" id =\""+donorID+"\" > Delete </a>" + "</td></tr>");
+			row.add(donorID);
+			row.add(name);
+			row.add(gender);
+			row.add(date);
+			row.add(address);
+			row.add(isSmoker);
+			row.add(majorDiseases);
+			row.add(contactNo);
+			row.add(BloodType);
+			Rows.add(row);
+			System.out.println(row);
 		}
-		 out.println("</table>");  
-		 out.println("</html></body>");  
          con.close();  
-
-		//Checks if insert is successful.If yes,then redirects to Result.jsp page 
-		
+       
+        request.setAttribute("propertyList", Rows);
+        if(!Rows.isEmpty()) {
+        	RequestDispatcher rd = request.getRequestDispatcher("donorDisplay.jsp");
+			rd.forward(request, response);
+        }
 
 		}
 		 catch (Exception e) 
  		{
- 			out.println("Error");
+ 			
  		}
 
 		

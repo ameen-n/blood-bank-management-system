@@ -31,50 +31,58 @@ public class AddServlet extends HttpServlet {
 
 	
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	//post method is being used as it is more safe.
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try
 		{
-		String name = request.getParameter("name");
-		String gender = request.getParameter("gender");
-		Date date = Date.valueOf(request.getParameter("date"));
-		String address = request.getParameter("address");
-		int bloodtype = Integer.parseInt("bloodtype");
-		String contactno = request.getParameter("contactno");
+	
+		//getting input values from jsp page
+		
+			String name = request.getParameter("name");
+			String gender = request.getParameter("gender");
+			Date date = Date.valueOf(request.getParameter("date"));
+			String address = request.getParameter("address");
+			int bloodtype =Integer.parseInt(request.getParameter("bloodtype"));
+			String contactno = request.getParameter("contactno");
+			int diseases = Integer.parseInt(request.getParameter("diseases"));
+			int isSmoker = Integer.parseInt(request.getParameter("isSmoker"));
+		
 
 
 		Connection con = null;
  		String url = "jdbc:mysql://localhost:3306/bloodbank"; //MySQL URL and followed by the database name
- 		String username = "project1"; //MySQL username
- 		String password = "password"; //MySQL password
+ 		String username = "bbmsuser"; //MySQL username
+ 		String password = "Pass@123"; //MySQL password
 		
  		Class.forName("com.mysql.jdbc.Driver");
 		con = DriverManager.getConnection(url, username, password); //attempting to connect to MySQL database
- 		System.out.println("Printing connection object "+con); //for debugging purposes
- 		//PreparedStatement st1 = con.prepareStatement("select count(book_id) as countno from book where book_id = ?"); 
- 		//st1.setInt(1, id);
+ 		System.out.println("Printing connection object "+con);
+ 		//PreparedStatement st1 = con.prepareStatement("select count(student_id) as countno from student where student_id = ?");
+ 		//st1.setInt(1, studentid);
  		//ResultSet rs = st1.executeQuery();
  		//int count = -1;
  		//while(rs.next()) {
- 			//count = rs.getInt("countno");
+ 		//	count = rs.getInt("countno");
  		//}
  		
- 		//if(count == 0) 
+ 		//if(count == 1) 
  		//{
-		
-		PreparedStatement st = con.prepareStatement("insert into Recipient (name, gender, DOB, address, typeID, contactNo) values(?, ?, ?, ?, ?, ?)");
- 		st.setString(1,name);
+		//Prepared Statement to add student data
+		PreparedStatement st = con.prepareStatement("insert into Donor (name, gender, DOB, address, isSmoker, majorDiseases, contactNo, typeID) values(?, ?, ?, ?, ?, ?, ?, ?)");
+		st.setString(1,name);
 		st.setString(2,gender);
 		st.setDate(3,date);
 		st.setString(4,address);
-		st.setInt(5,bloodtype);
-		st.setString(6,contactno);
+		st.setInt(5,isSmoker);
+		st.setInt(6,diseases);
+		st.setString(7,contactno);
+		st.setInt(8,bloodtype);
 		int result=st.executeUpdate();
 		
 		if(result>0)
 		{
 			
-			RequestDispatcher rd = request.getRequestDispatcher("AddResult.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("IssueResult.jsp");
 			rd.forward(request, response);
 		}
 		
@@ -82,7 +90,7 @@ public class AddServlet extends HttpServlet {
  		
  		else
  		{
-			RequestDispatcher rd = request.getRequestDispatcher("InvalidAddition.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("InvalidIssue.jsp");
 			rd.forward(request, response);
 		}
  			
