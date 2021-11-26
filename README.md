@@ -267,7 +267,7 @@ The administrator can view the bloodtypes that are in stock, and whether hey hav
 
 The administrator can see the transfusions that have already been processed.
 
-The servlet is viewPast.java** and the webpage is **viewPast.jsp\*\*.
+The servlet is **_viewPast.java_** and the webpage is **_viewPast.jsp_**.
 
 ![Blood Stock](https://res.cloudinary.com/dynuzthsk/image/upload/v1635370562/monday/23_ifjckp.png)
 
